@@ -1,6 +1,8 @@
 package com.springboot.mybatis.service;
 
 import com.springboot.mybatis.entity.Course;
+import com.springboot.mybatis.entity.CourseVO;
+import com.springboot.mybatis.entity.CourseVO1;
 import com.springboot.mybatis.util.RandomUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,14 +18,23 @@ import static org.junit.Assert.*;
 public class CourseServiceImplTest {
    @Resource
     private CourseService courseService;
-
+    @Test
+    public void selectCurrentCourses() {
+        List<CourseVO> courseVOList = courseService.selectCurrentCourses();
+        courseVOList.forEach(courseVO -> System.out.println(courseVO));
+    }
+    @Test
+    public void selectFinshedCourses() {
+        List<CourseVO1> courseVO1List = courseService.selectFinshedCourses();
+        courseVO1List.forEach(courseVO1 -> System.out.println(courseVO1));
+    }
     @Test
     public void selectAll() {
         List<Course> courseList=courseService.selectAll();
         courseList.forEach(course -> System.out.println(course));
     }
 
-    @Test
+   @Test
     public void getOne() {
         Course course=courseService.getOne(1L);
         System.out.println(course);
@@ -31,7 +42,7 @@ public class CourseServiceImplTest {
 
     @Test
     public void delete() {
-        courseService.delete(6L);
+        courseService.delete(14L);
     }
 
     @Test
@@ -47,9 +58,8 @@ public class CourseServiceImplTest {
     }
     @Test
     public void update() {
-        Course course = courseService.getOne(7L);
-        course.setCover("100.jpg");
-        course.setFinished((short) 1);
+        Course course = courseService.getOne(11L);
+        course.setFinished((short) 0);
         courseService.update(course);
     }
 }
